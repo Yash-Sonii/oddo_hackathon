@@ -78,7 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "AssetFlow — Enterprise Asset & Resource Management" },
-      { name: "description", content: "Track assets, allocations, bookings, maintenance, and audits across your organization." },
+      {
+        name: "description",
+        content:
+          "Track assets, allocations, bookings, maintenance, and audits across your organization.",
+      },
       { property: "og:title", content: "AssetFlow" },
       { property: "og:description", content: "Enterprise Asset & Resource Management." },
       { property: "og:type", content: "website" },

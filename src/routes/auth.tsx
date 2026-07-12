@@ -33,17 +33,17 @@ function AuthPage() {
     setMsg(null);
     try {
       if (mode === "signup") {
-        const r = await api<{ access_token: string; employee: CurrentUser }>(
-          "/api/auth/signup",
-          { method: "POST", body: JSON.stringify({ name, email, password }) },
-        );
+        const r = await api<{ access_token: string; employee: CurrentUser }>("/api/auth/signup", {
+          method: "POST",
+          body: JSON.stringify({ name, email, password }),
+        });
         setSession(r.access_token, r.employee);
         navigate({ to: "/dashboard" });
       } else if (mode === "login") {
-        const r = await api<{ access_token: string; employee: CurrentUser }>(
-          "/api/auth/login",
-          { method: "POST", body: JSON.stringify({ email, password }) },
-        );
+        const r = await api<{ access_token: string; employee: CurrentUser }>("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
         setSession(r.access_token, r.employee);
         navigate({ to: "/dashboard" });
       } else {
@@ -64,59 +64,101 @@ function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
         <div className="mb-6">
-          <Link to="/" className="text-xs text-muted-foreground hover:underline">← AssetFlow</Link>
+          <Link to="/" className="text-xs text-muted-foreground hover:underline">
+            ← AssetFlow
+          </Link>
           <h1 className="mt-2 text-2xl font-semibold text-foreground">
             {mode === "login" && "Sign in"}
             {mode === "signup" && "Create account"}
             {mode === "forgot" && "Reset password"}
           </h1>
           <p className="text-sm text-muted-foreground">
-            {mode === "signup" ? "New employees start with the 'employee' role." : "Use your work email."}
+            {mode === "signup"
+              ? "New employees start with the 'employee' role."
+              : "Use your work email."}
           </p>
         </div>
 
         <form onSubmit={submit} className="space-y-4">
           {mode === "signup" && (
             <Field label="Name">
-              <input required value={name} onChange={(e) => setName(e.target.value)}
-                className="input" autoComplete="name" />
+              <input
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input"
+                autoComplete="name"
+              />
             </Field>
           )}
           <Field label="Email">
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-              className="input" autoComplete="email" />
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input"
+              autoComplete="email"
+            />
           </Field>
           {mode !== "forgot" && (
             <Field label="Password">
-              <input required type="password" minLength={6} value={password}
-                onChange={(e) => setPassword(e.target.value)} className="input"
-                autoComplete={mode === "login" ? "current-password" : "new-password"} />
+              <input
+                required
+                type="password"
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input"
+                autoComplete={mode === "login" ? "current-password" : "new-password"}
+              />
             </Field>
           )}
 
           {msg && (
-            <div className={`rounded-md px-3 py-2 text-sm ${
-              msg.kind === "err"
-                ? "bg-destructive/10 text-destructive"
-                : "bg-primary/10 text-foreground"
-            }`}>{msg.text}</div>
+            <div
+              className={`rounded-md px-3 py-2 text-sm ${
+                msg.kind === "err"
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-primary/10 text-foreground"
+              }`}
+            >
+              {msg.text}
+            </div>
           )}
 
-          <button type="submit" disabled={busy}
-            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">
-            {busy ? "…" : mode === "login" ? "Sign in" : mode === "signup" ? "Sign up" : "Send reset link"}
+          <button
+            type="submit"
+            disabled={busy}
+            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+          >
+            {busy
+              ? "…"
+              : mode === "login"
+                ? "Sign in"
+                : mode === "signup"
+                  ? "Sign up"
+                  : "Send reset link"}
           </button>
         </form>
 
         <div className="mt-4 flex justify-between text-xs text-muted-foreground">
           {mode !== "login" ? (
-            <button onClick={() => setMode("login")} className="hover:underline">Sign in</button>
-          ) : <span />}
+            <button onClick={() => setMode("login")} className="hover:underline">
+              Sign in
+            </button>
+          ) : (
+            <span />
+          )}
           {mode !== "signup" && (
-            <button onClick={() => setMode("signup")} className="hover:underline">Create account</button>
+            <button onClick={() => setMode("signup")} className="hover:underline">
+              Create account
+            </button>
           )}
           {mode !== "forgot" && (
-            <button onClick={() => setMode("forgot")} className="hover:underline">Forgot password?</button>
+            <button onClick={() => setMode("forgot")} className="hover:underline">
+              Forgot password?
+            </button>
           )}
         </div>
       </div>
