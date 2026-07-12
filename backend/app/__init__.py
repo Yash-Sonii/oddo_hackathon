@@ -28,7 +28,9 @@ def create_app():
     from .routes.allocations import allocations_bp
     from .routes.transfers import transfers_bp
     from .routes.bookings import bookings_bp
-    from .routes.assets_stub import assets_stub_bp
+    from .routes.assets import assets_bp
+    from .routes.maintenance import maintenance_bp
+    from .routes.audit import audit_bp
 
     app.register_blueprint(auth_bp,        url_prefix="/api/auth")
     app.register_blueprint(org_bp,         url_prefix="/api")
@@ -36,7 +38,9 @@ def create_app():
     app.register_blueprint(allocations_bp, url_prefix="/api/allocations")
     app.register_blueprint(transfers_bp,   url_prefix="/api/transfers")
     app.register_blueprint(bookings_bp,    url_prefix="/api/bookings")
-    app.register_blueprint(assets_stub_bp, url_prefix="/api/assets")
+    app.register_blueprint(assets_bp,      url_prefix="/api/assets")
+    app.register_blueprint(maintenance_bp, url_prefix="/api/maintenance")
+    app.register_blueprint(audit_bp,       url_prefix="/api/audits")
 
     # Teammates: register additional blueprints below, e.g.
     # from .routes.assets import assets_bp

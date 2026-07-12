@@ -46,10 +46,28 @@ export function Navbar() {
               <span className="hidden sm:inline">Allocations</span>
             </a>
             <a
+              href="/transfers"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            >
+              <span className="hidden sm:inline">Transfers</span>
+            </a>
+            <a
               href="/bookings"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
             >
               <span className="hidden sm:inline">Bookings</span>
+            </a>
+            <a
+              href="/maintenance"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            >
+              <span className="hidden sm:inline">Maintenance</span>
+            </a>
+            <a
+              href="/audits"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            >
+              <span className="hidden sm:inline">Audits</span>
             </a>
             {user.role === "admin" && (
               <Link

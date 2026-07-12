@@ -51,9 +51,22 @@ def _parse_date(val) -> date | None:
 @allocations_bp.get("")
 @role_required("admin", "asset_manager", "department_head", "employee")
 def list_allocations():
-    """List allocations. ?status=active|returned|overdue|all (default: active)"""
-    status_filter = request.args.get("status", "active")
+    """List allocations. ?status=active|returned|overdue|all (default: active), ?asset_id=X"""
+    status_filter = request.args.get("status")
+    asset_id_filter = request.args.get("asset_id")
+
     q = Allocation.query
+    if asset_id_filter:
+        try:
+            q = q.filter(Allocation.asset_id == int(asset_id_filter))
+        except ValueError:
+            pass
+        if not status_filter:
+            status_filter = "all"
+    
+    if not status_filter:
+        status_filter = "active"
+
     if status_filter != "all":
         q = q.filter(Allocation.status == ("active" if status_filter == "overdue" else status_filter))
     rows = q.order_by(Allocation.id.desc()).all()

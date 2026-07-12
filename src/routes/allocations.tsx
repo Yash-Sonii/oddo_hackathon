@@ -181,7 +181,9 @@ function AllocationsPage() {
                 </p>
                 <button
                   id="alloc-request-transfer"
-                  onClick={() => navigate({ to: "/allocations" })}
+                  onClick={() => {
+                    window.location.href = `/transfers?assetId=${assetId}`;
+                  }}
                   className="mt-2 rounded-md border border-amber-400 bg-white dark:bg-transparent px-3 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/40">
                   Request Transfer →
                 </button>

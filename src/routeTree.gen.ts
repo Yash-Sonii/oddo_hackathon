@@ -9,16 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransfersRouteImport } from './routes/transfers'
 import { Route as OrgSetupRouteImport } from './routes/org-setup'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AllocationsRouteImport } from './routes/allocations'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MaintenanceIndexRouteImport } from './routes/maintenance/index'
+import { Route as AuditsIndexRouteImport } from './routes/audits/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as MaintenanceNewRouteImport } from './routes/maintenance/new'
 import { Route as AssetsNewRouteImport } from './routes/assets/new'
 import { Route as AssetsIdRouteImport } from './routes/assets/$id'
 
+const TransfersRoute = TransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrgSetupRoute = OrgSetupRouteImport.update({
   id: '/org-setup',
   path: '/org-setup',
@@ -49,9 +58,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MaintenanceIndexRoute = MaintenanceIndexRouteImport.update({
+  id: '/maintenance/',
+  path: '/maintenance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditsIndexRoute = AuditsIndexRouteImport.update({
+  id: '/audits/',
+  path: '/audits/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsIndexRoute = AssetsIndexRouteImport.update({
   id: '/assets/',
   path: '/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenanceNewRoute = MaintenanceNewRouteImport.update({
+  id: '/maintenance/new',
+  path: '/maintenance/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsNewRoute = AssetsNewRouteImport.update({
@@ -72,9 +96,13 @@ export interface FileRoutesByFullPath {
   '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/maintenance/new': typeof MaintenanceNewRoute
   '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,9 +111,13 @@ export interface FileRoutesByTo {
   '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/maintenance/new': typeof MaintenanceNewRoute
   '/assets': typeof AssetsIndexRoute
+  '/audits': typeof AuditsIndexRoute
+  '/maintenance': typeof MaintenanceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +127,13 @@ export interface FileRoutesById {
   '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/maintenance/new': typeof MaintenanceNewRoute
   '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +144,13 @@ export interface FileRouteTypes {
     | '/bookings'
     | '/dashboard'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+    | '/maintenance/new'
     | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,9 +159,13 @@ export interface FileRouteTypes {
     | '/bookings'
     | '/dashboard'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+    | '/maintenance/new'
     | '/assets'
+    | '/audits'
+    | '/maintenance'
   id:
     | '__root__'
     | '/'
@@ -130,9 +174,13 @@ export interface FileRouteTypes {
     | '/bookings'
     | '/dashboard'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+    | '/maintenance/new'
     | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,13 +190,24 @@ export interface RootRouteChildren {
   BookingsRoute: typeof BookingsRoute
   DashboardRoute: typeof DashboardRoute
   OrgSetupRoute: typeof OrgSetupRoute
+  TransfersRoute: typeof TransfersRoute
   AssetsIdRoute: typeof AssetsIdRoute
   AssetsNewRoute: typeof AssetsNewRoute
+  MaintenanceNewRoute: typeof MaintenanceNewRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
+  AuditsIndexRoute: typeof AuditsIndexRoute
+  MaintenanceIndexRoute: typeof MaintenanceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transfers': {
+      id: '/transfers'
+      path: '/transfers'
+      fullPath: '/transfers'
+      preLoaderRoute: typeof TransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/org-setup': {
       id: '/org-setup'
       path: '/org-setup'
@@ -191,11 +250,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/maintenance/': {
+      id: '/maintenance/'
+      path: '/maintenance'
+      fullPath: '/maintenance/'
+      preLoaderRoute: typeof MaintenanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audits/': {
+      id: '/audits/'
+      path: '/audits'
+      fullPath: '/audits/'
+      preLoaderRoute: typeof AuditsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets/': {
       id: '/assets/'
       path: '/assets'
       fullPath: '/assets/'
       preLoaderRoute: typeof AssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance/new': {
+      id: '/maintenance/new'
+      path: '/maintenance/new'
+      fullPath: '/maintenance/new'
+      preLoaderRoute: typeof MaintenanceNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assets/new': {
@@ -222,9 +302,13 @@ const rootRouteChildren: RootRouteChildren = {
   BookingsRoute: BookingsRoute,
   DashboardRoute: DashboardRoute,
   OrgSetupRoute: OrgSetupRoute,
+  TransfersRoute: TransfersRoute,
   AssetsIdRoute: AssetsIdRoute,
   AssetsNewRoute: AssetsNewRoute,
+  MaintenanceNewRoute: MaintenanceNewRoute,
   AssetsIndexRoute: AssetsIndexRoute,
+  AuditsIndexRoute: AuditsIndexRoute,
+  MaintenanceIndexRoute: MaintenanceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
