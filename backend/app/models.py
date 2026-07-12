@@ -68,8 +68,26 @@ class Asset(db.Model):
     condition = db.Column(db.String(40))
     location = db.Column(db.String(120))
     is_bookable = db.Column(db.Boolean, default=False)
+    photo_url = db.Column(db.String(500), nullable=True)
     # status: available|allocated|reserved|under_maintenance|lost|retired|disposed
     status = db.Column(db.String(32), default="available")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "category_id": self.category_id,
+            "asset_tag": self.asset_tag,
+            "serial_number": self.serial_number,
+            "acquisition_date": self.acquisition_date.isoformat() if self.acquisition_date else None,
+            "acquisition_cost": self.acquisition_cost,
+            "condition": self.condition,
+            "location": self.location,
+            "is_bookable": self.is_bookable,
+            "photo_url": self.photo_url,
+            "status": self.status,
+        }
+
 
 
 class Allocation(db.Model):
@@ -84,6 +102,20 @@ class Allocation(db.Model):
     return_condition_notes = db.Column(db.Text)
     status = db.Column(db.String(20), default="active")  # active|returned|overdue
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "asset_id": self.asset_id,
+            "employee_id": self.employee_id,
+            "department_id": self.department_id,
+            "allocated_date": self.allocated_date.isoformat() if self.allocated_date else None,
+            "expected_return_date": self.expected_return_date.isoformat() if self.expected_return_date else None,
+            "actual_return_date": self.actual_return_date.isoformat() if self.actual_return_date else None,
+            "return_condition_notes": self.return_condition_notes,
+            "status": self.status,
+        }
+
+
 
 class TransferRequest(db.Model):
     __tablename__ = "transfer_requests"
@@ -94,6 +126,16 @@ class TransferRequest(db.Model):
     requested_by = db.Column(db.Integer, db.ForeignKey("employees.id"))
     status = db.Column(db.String(20), default="requested")  # requested|approved|rejected|completed
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "asset_id": self.asset_id,
+            "from_employee_id": self.from_employee_id,
+            "to_employee_id": self.to_employee_id,
+            "requested_by": self.requested_by,
+            "status": self.status,
+        }
+
 
 class Booking(db.Model):
     __tablename__ = "bookings"
@@ -103,6 +145,16 @@ class Booking(db.Model):
     start_time = db.Column(db.DateTime)
     end_time = db.Column(db.DateTime)
     status = db.Column(db.String(20), default="upcoming")  # upcoming|ongoing|completed|cancelled
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "asset_id": self.asset_id,
+            "employee_id": self.employee_id,
+            "start_time": self.start_time.isoformat() if self.start_time else None,
+            "end_time": self.end_time.isoformat() if self.end_time else None,
+            "status": self.status,
+        }
 
 
 class MaintenanceRequest(db.Model):
@@ -117,6 +169,19 @@ class MaintenanceRequest(db.Model):
     status = db.Column(db.String(20), default="pending")
     technician_name = db.Column(db.String(120))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "asset_id": self.asset_id,
+            "raised_by_employee_id": self.raised_by_employee_id,
+            "issue_description": self.issue_description,
+            "priority": self.priority,
+            "photo_url": self.photo_url,
+            "status": self.status,
+            "technician_name": self.technician_name,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }
 
 
 # ---------- Audit ----------
