@@ -168,6 +168,7 @@ class MaintenanceRequest(db.Model):
     # pending|approved|rejected|assigned|in_progress|resolved
     status = db.Column(db.String(20), default="pending")
     technician_name = db.Column(db.String(120))
+    cost = db.Column(db.Float, default=0.0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def to_dict(self):
@@ -180,6 +181,7 @@ class MaintenanceRequest(db.Model):
             "photo_url": self.photo_url,
             "status": self.status,
             "technician_name": self.technician_name,
+            "cost": self.cost,
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
@@ -194,12 +196,29 @@ class AuditCycle(db.Model):
     end_date = db.Column(db.Date)
     status = db.Column(db.String(20), default="open")  # open|closed
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "scope_department_id": self.scope_department_id,
+            "scope_location": self.scope_location,
+            "start_date": self.start_date.isoformat() if self.start_date else None,
+            "end_date": self.end_date.isoformat() if self.end_date else None,
+            "status": self.status
+        }
+
 
 class AuditAssignment(db.Model):
     __tablename__ = "audit_assignments"
     id = db.Column(db.Integer, primary_key=True)
     audit_cycle_id = db.Column(db.Integer, db.ForeignKey("audit_cycles.id"), nullable=False)
     auditor_employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "audit_cycle_id": self.audit_cycle_id,
+            "auditor_employee_id": self.auditor_employee_id
+        }
 
 
 class AuditRecord(db.Model):
@@ -209,6 +228,15 @@ class AuditRecord(db.Model):
     asset_id = db.Column(db.Integer, db.ForeignKey("assets.id"), nullable=False)
     result = db.Column(db.String(20))  # verified|missing|damaged
     notes = db.Column(db.Text)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "audit_cycle_id": self.audit_cycle_id,
+            "asset_id": self.asset_id,
+            "result": self.result,
+            "notes": self.notes
+        }
 
 
 # ---------- Notifications ----------
@@ -220,3 +248,58 @@ class Notification(db.Model):
     type = db.Column(db.String(40))
     is_read = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "employee_id": self.employee_id,
+            "message": self.message,
+            "type": self.type,
+            "is_read": self.is_read,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }
+
+
+# ---------- Activity History & Reports Metadata ----------
+class ActivityLog(db.Model):
+    __tablename__ = "activity_logs"
+    id = db.Column(db.Integer, primary_key=True)
+    employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"), nullable=True)
+    employee_name = db.Column(db.String(120), nullable=True)
+    action = db.Column(db.String(255), nullable=False)
+    details = db.Column(db.Text, nullable=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "employee_id": self.employee_id,
+            "employee_name": self.employee_name,
+            "action": self.action,
+            "details": self.details,
+            "timestamp": self.timestamp.isoformat() if self.timestamp else None
+        }
+
+
+class ReportMetadata(db.Model):
+    __tablename__ = "report_metadata"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    type = db.Column(db.String(50))  # utilization|maintenance|audit|summary
+    format = db.Column(db.String(10))  # pdf|csv
+    created_by_employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"))
+    filters = db.Column(db.JSON, nullable=True)
+    file_path = db.Column(db.String(500), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": self.type,
+            "format": self.format,
+            "created_by_employee_id": self.created_by_employee_id,
+            "filters": self.filters or {},
+            "file_path": self.file_path,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }

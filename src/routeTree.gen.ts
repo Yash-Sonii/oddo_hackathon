@@ -10,16 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OrgSetupRouteImport } from './routes/org-setup'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ActivityLogsRouteImport } from './routes/activity-logs'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportsIndexRouteImport } from './routes/reports/index'
+import { Route as MaintenanceIndexRouteImport } from './routes/maintenance/index'
+import { Route as AuditsIndexRouteImport } from './routes/audits/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as AuditsIdRouteImport } from './routes/audits/$id'
 import { Route as AssetsNewRouteImport } from './routes/assets/new'
 import { Route as AssetsIdRouteImport } from './routes/assets/$id'
 
 const OrgSetupRoute = OrgSetupRouteImport.update({
   id: '/org-setup',
   path: '/org-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -32,14 +43,39 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivityLogsRoute = ActivityLogsRouteImport.update({
+  id: '/activity-logs',
+  path: '/activity-logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsIndexRoute = ReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenanceIndexRoute = MaintenanceIndexRouteImport.update({
+  id: '/maintenance/',
+  path: '/maintenance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditsIndexRoute = AuditsIndexRouteImport.update({
+  id: '/audits/',
+  path: '/audits/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsIndexRoute = AssetsIndexRouteImport.update({
   id: '/assets/',
   path: '/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditsIdRoute = AuditsIdRouteImport.update({
+  id: '/audits/$id',
+  path: '/audits/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsNewRoute = AssetsNewRouteImport.update({
@@ -55,70 +91,112 @@ const AssetsIdRoute = AssetsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/audits/$id': typeof AuditsIdRoute
   '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+  '/reports/': typeof ReportsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/audits/$id': typeof AuditsIdRoute
   '/assets': typeof AssetsIndexRoute
+  '/audits': typeof AuditsIndexRoute
+  '/maintenance': typeof MaintenanceIndexRoute
+  '/reports': typeof ReportsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+  '/audits/$id': typeof AuditsIdRoute
   '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+  '/reports/': typeof ReportsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/activity-logs'
     | '/auth'
     | '/dashboard'
+    | '/notifications'
     | '/org-setup'
     | '/assets/$id'
     | '/assets/new'
+    | '/audits/$id'
     | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
+    | '/reports/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/activity-logs'
     | '/auth'
     | '/dashboard'
+    | '/notifications'
     | '/org-setup'
     | '/assets/$id'
     | '/assets/new'
+    | '/audits/$id'
     | '/assets'
+    | '/audits'
+    | '/maintenance'
+    | '/reports'
   id:
     | '__root__'
     | '/'
+    | '/activity-logs'
     | '/auth'
     | '/dashboard'
+    | '/notifications'
     | '/org-setup'
     | '/assets/$id'
     | '/assets/new'
+    | '/audits/$id'
     | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
+    | '/reports/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityLogsRoute: typeof ActivityLogsRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
+  NotificationsRoute: typeof NotificationsRoute
   OrgSetupRoute: typeof OrgSetupRoute
   AssetsIdRoute: typeof AssetsIdRoute
   AssetsNewRoute: typeof AssetsNewRoute
+  AuditsIdRoute: typeof AuditsIdRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
+  AuditsIndexRoute: typeof AuditsIndexRoute
+  MaintenanceIndexRoute: typeof MaintenanceIndexRoute
+  ReportsIndexRoute: typeof ReportsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -128,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/org-setup'
       fullPath: '/org-setup'
       preLoaderRoute: typeof OrgSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -144,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activity-logs': {
+      id: '/activity-logs'
+      path: '/activity-logs'
+      fullPath: '/activity-logs'
+      preLoaderRoute: typeof ActivityLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,11 +243,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports/': {
+      id: '/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof ReportsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance/': {
+      id: '/maintenance/'
+      path: '/maintenance'
+      fullPath: '/maintenance/'
+      preLoaderRoute: typeof MaintenanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audits/': {
+      id: '/audits/'
+      path: '/audits'
+      fullPath: '/audits/'
+      preLoaderRoute: typeof AuditsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets/': {
       id: '/assets/'
       path: '/assets'
       fullPath: '/assets/'
       preLoaderRoute: typeof AssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audits/$id': {
+      id: '/audits/$id'
+      path: '/audits/$id'
+      fullPath: '/audits/$id'
+      preLoaderRoute: typeof AuditsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assets/new': {
@@ -177,12 +297,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityLogsRoute: ActivityLogsRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
+  NotificationsRoute: NotificationsRoute,
   OrgSetupRoute: OrgSetupRoute,
   AssetsIdRoute: AssetsIdRoute,
   AssetsNewRoute: AssetsNewRoute,
+  AuditsIdRoute: AuditsIdRoute,
   AssetsIndexRoute: AssetsIndexRoute,
+  AuditsIndexRoute: AuditsIndexRoute,
+  MaintenanceIndexRoute: MaintenanceIndexRoute,
+  ReportsIndexRoute: ReportsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
