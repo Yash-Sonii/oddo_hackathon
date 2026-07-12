@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { getUser, clearSession, api, type CurrentUser } from "@/lib/assetflow-api";
 import { 
   LayoutDashboard, Settings, LogOut, Shield, Wrench, 
-  ClipboardCheck, BarChart3, History, Bell, Sun, Moon 
+  ClipboardCheck, BarChart3, History, Bell, Sun, Moon,
+  Layers, ArrowLeftRight, Calendar
 } from "lucide-react";
 
 export function Navbar() {
@@ -83,8 +84,30 @@ export function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span className="hidden md:inline">Dashboard</span>
             </Link>
-<<<<<<< HEAD
-            
+            <Link
+              to="/allocations"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all [&.active]:bg-accent/80 [&.active]:text-foreground"
+            >
+              <Layers className="h-4 w-4" />
+              <span className="hidden md:inline">Allocations</span>
+            </Link>
+
+            <Link
+              to="/transfers"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all [&.active]:bg-accent/80 [&.active]:text-foreground"
+            >
+              <ArrowLeftRight className="h-4 w-4" />
+              <span className="hidden md:inline">Transfers</span>
+            </Link>
+
+            <Link
+              to="/bookings"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all [&.active]:bg-accent/80 [&.active]:text-foreground"
+            >
+              <Calendar className="h-4 w-4" />
+              <span className="hidden md:inline">Bookings</span>
+            </Link>
+
             <Link
               to="/maintenance"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all [&.active]:bg-accent/80 [&.active]:text-foreground"
@@ -118,39 +141,6 @@ export function Navbar() {
                 <span className="hidden md:inline">Logs</span>
               </Link>
             )}
-
-=======
-            <a
-              href="/allocations"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
-            >
-              <span className="hidden sm:inline">Allocations</span>
-            </a>
-            <a
-              href="/transfers"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
-            >
-              <span className="hidden sm:inline">Transfers</span>
-            </a>
-            <a
-              href="/bookings"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
-            >
-              <span className="hidden sm:inline">Bookings</span>
-            </a>
-            <a
-              href="/maintenance"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
-            >
-              <span className="hidden sm:inline">Maintenance</span>
-            </a>
-            <a
-              href="/audits"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
-            >
-              <span className="hidden sm:inline">Audits</span>
-            </a>
->>>>>>> main
             {user.role === "admin" && (
               <Link
                 to="/org-setup"

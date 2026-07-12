@@ -331,8 +331,8 @@ function AssetDetailPage() {
                           <td className="px-4 py-2 font-medium">{a.id}</td>
                           <td className="px-4 py-2">Employee #{a.employee_id}</td>
                           <td className="px-4 py-2">{a.allocated_date || "—"}</td>
-                          <td className="px-4 py-2">{a.expected_return || "—"}</td>
-                          <td className="px-4 py-2">{a.actual_return || "—"}</td>
+                          <td className="px-4 py-2">{a.expected_return_date || "—"}</td>
+                          <td className="px-4 py-2">{a.actual_return_date || "—"}</td>
                           <td className="px-4 py-2">
                             <span className="rounded bg-secondary px-1.5 py-0.5 font-mono text-[10px]">
                               {a.status}
