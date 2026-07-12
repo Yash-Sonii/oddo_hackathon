@@ -152,9 +152,9 @@ export function Header({ user, onSignOut }: { user: CurrentUser | null; onSignOu
           AssetFlow
         </Link>
         <nav className="flex items-center gap-4 text-sm">
-          <Link to="/dashboard" className="text-foreground hover:underline">
-            Dashboard
-          </Link>
+          <Link to="/dashboard" className="text-foreground hover:underline">Dashboard</Link>
+          <a href="/allocations" className="text-foreground hover:underline">Allocations</a>
+          <a href="/bookings" className="text-foreground hover:underline">Bookings</a>
           {user?.role === "admin" && (
             <Link to="/org-setup" className="text-foreground hover:underline">
               Org Setup

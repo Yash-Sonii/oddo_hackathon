@@ -25,14 +25,26 @@ def create_app():
     from .routes.auth import auth_bp
     from .routes.org_setup import org_bp
     from .routes.dashboard import dashboard_bp
-
-    app.register_blueprint(auth_bp, url_prefix="/api/auth")
-    app.register_blueprint(org_bp, url_prefix="/api")
-    app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
-
-    # Teammates: register your blueprint below
+    from .routes.allocations import allocations_bp
+    from .routes.transfers import transfers_bp
+    from .routes.bookings import bookings_bp
     from .routes.assets import assets_bp
-    app.register_blueprint(assets_bp, url_prefix="/api/assets")
+    from .routes.maintenance import maintenance_bp
+    from .routes.audit import audit_bp
+
+    app.register_blueprint(auth_bp,        url_prefix="/api/auth")
+    app.register_blueprint(org_bp,         url_prefix="/api")
+    app.register_blueprint(dashboard_bp,   url_prefix="/api/dashboard")
+    app.register_blueprint(allocations_bp, url_prefix="/api/allocations")
+    app.register_blueprint(transfers_bp,   url_prefix="/api/transfers")
+    app.register_blueprint(bookings_bp,    url_prefix="/api/bookings")
+    app.register_blueprint(assets_bp,      url_prefix="/api/assets")
+    app.register_blueprint(maintenance_bp, url_prefix="/api/maintenance")
+    app.register_blueprint(audit_bp,       url_prefix="/api/audits")
+
+    # Teammates: register additional blueprints below, e.g.
+    # from .routes.assets import assets_bp
+    # app.register_blueprint(assets_bp, url_prefix="/api/assets")
 
     @app.errorhandler(404)
     def _404(_): return jsonify({"error": "not_found"}), 404

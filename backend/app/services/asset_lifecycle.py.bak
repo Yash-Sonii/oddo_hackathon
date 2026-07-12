@@ -1,0 +1,23 @@
+"""
+Shared service: mutate Asset.status in one place.
+Import this from allocation / transfer / maintenance routes — never duplicate.
+"""
+from ..extensions import db
+from ..models import Asset
+
+VALID_STATUSES = {
+    "available", "allocated", "reserved",
+    "under_maintenance", "lost", "retired", "disposed",
+}
+
+
+def change_asset_status(asset_id: int, new_status: str) -> Asset:
+    """Update asset status and flush. Raises ValueError for bad status."""
+    if new_status not in VALID_STATUSES:
+        raise ValueError(f"Invalid status: {new_status}")
+    asset = db.session.get(Asset, asset_id)
+    if not asset:
+        raise LookupError(f"Asset {asset_id} not found")
+    asset.status = new_status
+    db.session.flush()   # caller must db.session.commit()
+    return asset
