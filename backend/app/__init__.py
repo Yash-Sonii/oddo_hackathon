@@ -34,34 +34,21 @@ def create_app(config_overrides=None):
     from .routes.assets import assets_bp
     from .routes.maintenance import maintenance_bp
     from .routes.audit import audit_bp
-
-    app.register_blueprint(auth_bp,        url_prefix="/api/auth")
-    app.register_blueprint(org_bp,         url_prefix="/api")
-    app.register_blueprint(dashboard_bp,   url_prefix="/api/dashboard")
-    app.register_blueprint(allocations_bp, url_prefix="/api/allocations")
-    app.register_blueprint(transfers_bp,   url_prefix="/api/transfers")
-    app.register_blueprint(bookings_bp,    url_prefix="/api/bookings")
-    app.register_blueprint(assets_bp,      url_prefix="/api/assets")
-    app.register_blueprint(maintenance_bp, url_prefix="/api/maintenance")
-    app.register_blueprint(audit_bp,       url_prefix="/api/audits")
-
-    # Teammates: register additional blueprints below, e.g.
-    # from .routes.assets import assets_bp
-    # app.register_blueprint(assets_bp, url_prefix="/api/assets")
-
-    from .routes.maintenance import maintenance_bp
-    app.register_blueprint(maintenance_bp, url_prefix="/api/maintenance")
-
-    from .routes.audit import audit_bp
-    app.register_blueprint(audit_bp, url_prefix="/api/audits")
-
     from .routes.reports import reports_bp
-    app.register_blueprint(reports_bp, url_prefix="/api/reports")
-
     from .routes.notifications import notifications_bp
-    app.register_blueprint(notifications_bp, url_prefix="/api/notifications")
-
     from .routes.activity_logs import activity_logs_bp
+
+    app.register_blueprint(auth_bp,          url_prefix="/api/auth")
+    app.register_blueprint(org_bp,           url_prefix="/api")
+    app.register_blueprint(dashboard_bp,     url_prefix="/api/dashboard")
+    app.register_blueprint(allocations_bp,   url_prefix="/api/allocations")
+    app.register_blueprint(transfers_bp,     url_prefix="/api/transfers")
+    app.register_blueprint(bookings_bp,      url_prefix="/api/bookings")
+    app.register_blueprint(assets_bp,        url_prefix="/api/assets")
+    app.register_blueprint(maintenance_bp,   url_prefix="/api/maintenance")
+    app.register_blueprint(audit_bp,         url_prefix="/api/audits")
+    app.register_blueprint(reports_bp,       url_prefix="/api/reports")
+    app.register_blueprint(notifications_bp,  url_prefix="/api/notifications")
     app.register_blueprint(activity_logs_bp, url_prefix="/api/activity-logs")
 
     @app.errorhandler(404)

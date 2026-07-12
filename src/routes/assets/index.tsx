@@ -254,7 +254,8 @@ function AssetDirectoryPage() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Link
-                        to={`/assets/${a.id}`}
+                        to="/assets/$id"
+                        params={{ id: a.id.toString() }}
                         className="text-xs font-semibold text-primary hover:underline"
                       >
                         Details
