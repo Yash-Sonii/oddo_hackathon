@@ -6,13 +6,16 @@ from flask_jwt_extended import JWTManager
 from .extensions import db
 
 
-def create_app():
+def create_app(config_overrides=None):
     app = Flask(__name__)
     basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'db.sqlite3')}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev-secret-change-me")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 60 * 60 * 12  # 12h
+
+    if config_overrides:
+        app.config.update(config_overrides)
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     JWTManager(app)
@@ -45,6 +48,21 @@ def create_app():
     # Teammates: register additional blueprints below, e.g.
     # from .routes.assets import assets_bp
     # app.register_blueprint(assets_bp, url_prefix="/api/assets")
+
+    from .routes.maintenance import maintenance_bp
+    app.register_blueprint(maintenance_bp, url_prefix="/api/maintenance")
+
+    from .routes.audit import audit_bp
+    app.register_blueprint(audit_bp, url_prefix="/api/audits")
+
+    from .routes.reports import reports_bp
+    app.register_blueprint(reports_bp, url_prefix="/api/reports")
+
+    from .routes.notifications import notifications_bp
+    app.register_blueprint(notifications_bp, url_prefix="/api/notifications")
+
+    from .routes.activity_logs import activity_logs_bp
+    app.register_blueprint(activity_logs_bp, url_prefix="/api/activity-logs")
 
     @app.errorhandler(404)
     def _404(_): return jsonify({"error": "not_found"}), 404
