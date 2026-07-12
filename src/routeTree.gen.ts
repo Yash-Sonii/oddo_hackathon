@@ -9,10 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransfersRouteImport } from './routes/transfers'
 import { Route as OrgSetupRouteImport } from './routes/org-setup'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as AuthRouteImport } from './routes/auth'
+<<<<<<< HEAD
 import { Route as ActivityLogsRouteImport } from './routes/activity-logs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReportsIndexRouteImport } from './routes/reports/index'
@@ -20,9 +23,22 @@ import { Route as MaintenanceIndexRouteImport } from './routes/maintenance/index
 import { Route as AuditsIndexRouteImport } from './routes/audits/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
 import { Route as AuditsIdRouteImport } from './routes/audits/$id'
+=======
+import { Route as AllocationsRouteImport } from './routes/allocations'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as MaintenanceIndexRouteImport } from './routes/maintenance/index'
+import { Route as AuditsIndexRouteImport } from './routes/audits/index'
+import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as MaintenanceNewRouteImport } from './routes/maintenance/new'
+>>>>>>> main
 import { Route as AssetsNewRouteImport } from './routes/assets/new'
 import { Route as AssetsIdRouteImport } from './routes/assets/$id'
 
+const TransfersRoute = TransfersRouteImport.update({
+  id: '/transfers',
+  path: '/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrgSetupRoute = OrgSetupRouteImport.update({
   id: '/org-setup',
   path: '/org-setup',
@@ -38,14 +54,25 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ActivityLogsRoute = ActivityLogsRouteImport.update({
   id: '/activity-logs',
   path: '/activity-logs',
+=======
+const AllocationsRoute = AllocationsRouteImport.update({
+  id: '/allocations',
+  path: '/allocations',
+>>>>>>> main
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -53,11 +80,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ReportsIndexRoute = ReportsIndexRouteImport.update({
   id: '/reports/',
   path: '/reports/',
   getParentRoute: () => rootRouteImport,
 } as any)
+=======
+>>>>>>> main
 const MaintenanceIndexRoute = MaintenanceIndexRouteImport.update({
   id: '/maintenance/',
   path: '/maintenance/',
@@ -73,9 +103,15 @@ const AssetsIndexRoute = AssetsIndexRouteImport.update({
   path: '/assets/',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const AuditsIdRoute = AuditsIdRouteImport.update({
   id: '/audits/$id',
   path: '/audits/$id',
+=======
+const MaintenanceNewRoute = MaintenanceNewRouteImport.update({
+  id: '/maintenance/new',
+  path: '/maintenance/new',
+>>>>>>> main
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsNewRoute = AssetsNewRouteImport.update({
@@ -91,13 +127,20 @@ const AssetsIdRoute = AssetsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+<<<<<<< HEAD
   '/activity-logs': typeof ActivityLogsRoute
+=======
+  '/allocations': typeof AllocationsRoute
+>>>>>>> main
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+<<<<<<< HEAD
   '/audits/$id': typeof AuditsIdRoute
   '/assets/': typeof AssetsIndexRoute
   '/audits/': typeof AuditsIndexRoute
@@ -107,45 +150,84 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity-logs': typeof ActivityLogsRoute
+=======
+  '/maintenance/new': typeof MaintenanceNewRoute
+  '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/allocations': typeof AllocationsRoute
+>>>>>>> main
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+<<<<<<< HEAD
   '/audits/$id': typeof AuditsIdRoute
   '/assets': typeof AssetsIndexRoute
   '/audits': typeof AuditsIndexRoute
   '/maintenance': typeof MaintenanceIndexRoute
   '/reports': typeof ReportsIndexRoute
+=======
+  '/maintenance/new': typeof MaintenanceNewRoute
+  '/assets': typeof AssetsIndexRoute
+  '/audits': typeof AuditsIndexRoute
+  '/maintenance': typeof MaintenanceIndexRoute
+>>>>>>> main
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+<<<<<<< HEAD
   '/activity-logs': typeof ActivityLogsRoute
+=======
+  '/allocations': typeof AllocationsRoute
+>>>>>>> main
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/notifications': typeof NotificationsRoute
   '/org-setup': typeof OrgSetupRoute
+  '/transfers': typeof TransfersRoute
   '/assets/$id': typeof AssetsIdRoute
   '/assets/new': typeof AssetsNewRoute
+<<<<<<< HEAD
   '/audits/$id': typeof AuditsIdRoute
   '/assets/': typeof AssetsIndexRoute
   '/audits/': typeof AuditsIndexRoute
   '/maintenance/': typeof MaintenanceIndexRoute
   '/reports/': typeof ReportsIndexRoute
+=======
+  '/maintenance/new': typeof MaintenanceNewRoute
+  '/assets/': typeof AssetsIndexRoute
+  '/audits/': typeof AuditsIndexRoute
+  '/maintenance/': typeof MaintenanceIndexRoute
+>>>>>>> main
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+<<<<<<< HEAD
     | '/activity-logs'
+=======
+    | '/allocations'
+>>>>>>> main
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/notifications'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+<<<<<<< HEAD
     | '/audits/$id'
     | '/assets/'
     | '/audits/'
@@ -155,12 +237,25 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activity-logs'
+=======
+    | '/maintenance/new'
+    | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/allocations'
+>>>>>>> main
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/notifications'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+<<<<<<< HEAD
     | '/audits/$id'
     | '/assets'
     | '/audits'
@@ -170,37 +265,76 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/activity-logs'
+=======
+    | '/maintenance/new'
+    | '/assets'
+    | '/audits'
+    | '/maintenance'
+  id:
+    | '__root__'
+    | '/'
+    | '/allocations'
+>>>>>>> main
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/notifications'
     | '/org-setup'
+    | '/transfers'
     | '/assets/$id'
     | '/assets/new'
+<<<<<<< HEAD
     | '/audits/$id'
     | '/assets/'
     | '/audits/'
     | '/maintenance/'
     | '/reports/'
+=======
+    | '/maintenance/new'
+    | '/assets/'
+    | '/audits/'
+    | '/maintenance/'
+>>>>>>> main
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+<<<<<<< HEAD
   ActivityLogsRoute: typeof ActivityLogsRoute
+=======
+  AllocationsRoute: typeof AllocationsRoute
+>>>>>>> main
   AuthRoute: typeof AuthRoute
+  BookingsRoute: typeof BookingsRoute
   DashboardRoute: typeof DashboardRoute
   NotificationsRoute: typeof NotificationsRoute
   OrgSetupRoute: typeof OrgSetupRoute
+  TransfersRoute: typeof TransfersRoute
   AssetsIdRoute: typeof AssetsIdRoute
   AssetsNewRoute: typeof AssetsNewRoute
+<<<<<<< HEAD
   AuditsIdRoute: typeof AuditsIdRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
   AuditsIndexRoute: typeof AuditsIndexRoute
   MaintenanceIndexRoute: typeof MaintenanceIndexRoute
   ReportsIndexRoute: typeof ReportsIndexRoute
+=======
+  MaintenanceNewRoute: typeof MaintenanceNewRoute
+  AssetsIndexRoute: typeof AssetsIndexRoute
+  AuditsIndexRoute: typeof AuditsIndexRoute
+  MaintenanceIndexRoute: typeof MaintenanceIndexRoute
+>>>>>>> main
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transfers': {
+      id: '/transfers'
+      path: '/transfers'
+      fullPath: '/transfers'
+      preLoaderRoute: typeof TransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/org-setup': {
       id: '/org-setup'
       path: '/org-setup'
@@ -222,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -229,11 +370,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/activity-logs': {
       id: '/activity-logs'
       path: '/activity-logs'
       fullPath: '/activity-logs'
       preLoaderRoute: typeof ActivityLogsRouteImport
+=======
+    '/allocations': {
+      id: '/allocations'
+      path: '/allocations'
+      fullPath: '/allocations'
+      preLoaderRoute: typeof AllocationsRouteImport
+>>>>>>> main
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -243,6 +392,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/reports/': {
       id: '/reports/'
       path: '/reports'
@@ -250,6 +400,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> main
     '/maintenance/': {
       id: '/maintenance/'
       path: '/maintenance'
@@ -271,11 +423,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssetsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/audits/$id': {
       id: '/audits/$id'
       path: '/audits/$id'
       fullPath: '/audits/$id'
       preLoaderRoute: typeof AuditsIdRouteImport
+=======
+    '/maintenance/new': {
+      id: '/maintenance/new'
+      path: '/maintenance/new'
+      fullPath: '/maintenance/new'
+      preLoaderRoute: typeof MaintenanceNewRouteImport
+>>>>>>> main
       parentRoute: typeof rootRouteImport
     }
     '/assets/new': {
@@ -297,18 +457,31 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+<<<<<<< HEAD
   ActivityLogsRoute: ActivityLogsRoute,
+=======
+  AllocationsRoute: AllocationsRoute,
+>>>>>>> main
   AuthRoute: AuthRoute,
+  BookingsRoute: BookingsRoute,
   DashboardRoute: DashboardRoute,
   NotificationsRoute: NotificationsRoute,
   OrgSetupRoute: OrgSetupRoute,
+  TransfersRoute: TransfersRoute,
   AssetsIdRoute: AssetsIdRoute,
   AssetsNewRoute: AssetsNewRoute,
+<<<<<<< HEAD
   AuditsIdRoute: AuditsIdRoute,
   AssetsIndexRoute: AssetsIndexRoute,
   AuditsIndexRoute: AuditsIndexRoute,
   MaintenanceIndexRoute: MaintenanceIndexRoute,
   ReportsIndexRoute: ReportsIndexRoute,
+=======
+  MaintenanceNewRoute: MaintenanceNewRoute,
+  AssetsIndexRoute: AssetsIndexRoute,
+  AuditsIndexRoute: AuditsIndexRoute,
+  MaintenanceIndexRoute: MaintenanceIndexRoute,
+>>>>>>> main
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
