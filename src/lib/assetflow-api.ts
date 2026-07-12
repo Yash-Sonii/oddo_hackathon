@@ -26,7 +26,11 @@ export function getUser(): CurrentUser | null {
   if (typeof window === "undefined") return null;
   const raw = window.localStorage.getItem(USER_KEY);
   if (!raw) return null;
-  try { return JSON.parse(raw) as CurrentUser; } catch { return null; }
+  try {
+    return JSON.parse(raw) as CurrentUser;
+  } catch {
+    return null;
+  }
 }
 
 export function setSession(token: string, user: CurrentUser) {
@@ -39,10 +43,7 @@ export function clearSession() {
   window.localStorage.removeItem(USER_KEY);
 }
 
-export async function api<T = unknown>(
-  path: string,
-  init: RequestInit = {},
-): Promise<T> {
+export async function api<T = unknown>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
