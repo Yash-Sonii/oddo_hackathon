@@ -1,0 +1,46 @@
+"""Flask app factory. Teammates: register your blueprint here."""
+import os
+from flask import Flask, jsonify
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from .extensions import db
+
+
+def create_app():
+    app = Flask(__name__)
+    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'db.sqlite3')}"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev-secret-change-me")
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 60 * 60 * 12  # 12h
+
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    JWTManager(app)
+    db.init_app(app)
+
+    # Import models so SQLAlchemy sees them before create_all
+    from . import models  # noqa: F401
+
+    # Blueprints
+    from .routes.auth import auth_bp
+    from .routes.org_setup import org_bp
+    from .routes.dashboard import dashboard_bp
+
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(org_bp, url_prefix="/api")
+    app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
+
+    # Teammates: register your blueprint below, e.g.
+    # from .routes.assets import assets_bp
+    # app.register_blueprint(assets_bp, url_prefix="/api/assets")
+
+    @app.errorhandler(404)
+    def _404(_): return jsonify({"error": "not_found"}), 404
+
+    @app.errorhandler(400)
+    def _400(e): return jsonify({"error": "bad_request", "message": str(e)}), 400
+
+    with app.app_context():
+        db.create_all()
+
+    return app
