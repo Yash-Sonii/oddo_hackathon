@@ -30,9 +30,9 @@ def create_app():
     app.register_blueprint(org_bp, url_prefix="/api")
     app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
 
-    # Teammates: register your blueprint below, e.g.
-    # from .routes.assets import assets_bp
-    # app.register_blueprint(assets_bp, url_prefix="/api/assets")
+    # Teammates: register your blueprint below
+    from .routes.assets import assets_bp
+    app.register_blueprint(assets_bp, url_prefix="/api/assets")
 
     @app.errorhandler(404)
     def _404(_): return jsonify({"error": "not_found"}), 404
