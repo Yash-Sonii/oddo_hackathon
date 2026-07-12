@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OrgSetupRouteImport } from './routes/org-setup'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AllocationsRouteImport } from './routes/allocations'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
 import { Route as AssetsNewRouteImport } from './routes/assets/new'
@@ -27,9 +29,19 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AllocationsRoute = AllocationsRouteImport.update({
+  id: '/allocations',
+  path: '/allocations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,7 +67,9 @@ const AssetsIdRoute = AssetsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/allocations': typeof AllocationsRoute
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
@@ -64,7 +78,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/allocations': typeof AllocationsRoute
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
@@ -74,7 +90,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/allocations': typeof AllocationsRoute
   '/auth': typeof AuthRoute
+  '/bookings': typeof BookingsRoute
   '/dashboard': typeof DashboardRoute
   '/org-setup': typeof OrgSetupRoute
   '/assets/$id': typeof AssetsIdRoute
@@ -85,7 +103,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/allocations'
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/org-setup'
     | '/assets/$id'
@@ -94,7 +114,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/allocations'
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/org-setup'
     | '/assets/$id'
@@ -103,7 +125,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/allocations'
     | '/auth'
+    | '/bookings'
     | '/dashboard'
     | '/org-setup'
     | '/assets/$id'
@@ -113,7 +137,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AllocationsRoute: typeof AllocationsRoute
   AuthRoute: typeof AuthRoute
+  BookingsRoute: typeof BookingsRoute
   DashboardRoute: typeof DashboardRoute
   OrgSetupRoute: typeof OrgSetupRoute
   AssetsIdRoute: typeof AssetsIdRoute
@@ -137,11 +163,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/allocations': {
+      id: '/allocations'
+      path: '/allocations'
+      fullPath: '/allocations'
+      preLoaderRoute: typeof AllocationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -177,7 +217,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AllocationsRoute: AllocationsRoute,
   AuthRoute: AuthRoute,
+  BookingsRoute: BookingsRoute,
   DashboardRoute: DashboardRoute,
   OrgSetupRoute: OrgSetupRoute,
   AssetsIdRoute: AssetsIdRoute,

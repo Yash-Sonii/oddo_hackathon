@@ -39,6 +39,18 @@ export function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
+            <a
+              href="/allocations"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            >
+              <span className="hidden sm:inline">Allocations</span>
+            </a>
+            <a
+              href="/bookings"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            >
+              <span className="hidden sm:inline">Bookings</span>
+            </a>
             {user.role === "admin" && (
               <Link
                 to="/org-setup"
